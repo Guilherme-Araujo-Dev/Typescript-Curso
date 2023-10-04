@@ -1,7 +1,13 @@
 export class View {
     constructor(selector, skip = false) {
         this.skip = skip;
-        this.elemento = document.querySelector(selector);
+        const elemento = document.querySelector(selector);
+        if (elemento) {
+            this.elemento = elemento;
+        }
+        else {
+            throw Error(`Selector ${selector} doesn't  exist`);
+        }
     }
     update(model) {
         let template = this.template(model);

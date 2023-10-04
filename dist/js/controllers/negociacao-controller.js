@@ -29,7 +29,8 @@ export class NegociacaoController {
         this.mensagensView.update("Negociação Adicionada com Sucesso");
     }
     clearForm() {
-        document.querySelector("form").reset();
+        const form = document.querySelector("form");
+        form.reset();
     }
     isBussinesDay(date) {
         return (date.getDay() !== Weekdays.SATURDAY && date.getDay() !== Weekdays.SUNDAY);

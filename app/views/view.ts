@@ -4,7 +4,7 @@ export abstract class View<T> {
   private elemento: HTMLElement; 
 
   constructor(selector: string, private skip: boolean = false) {
-    this.elemento = document.querySelector(selector); // Finds the HTML element corresponding to the selector
+    this.elemento = document.querySelector(selector) as HTMLElement; // Finds the HTML element corresponding to the selector
   }
 
   // Abstract method that must be implemented by subclasses to generate the HTML

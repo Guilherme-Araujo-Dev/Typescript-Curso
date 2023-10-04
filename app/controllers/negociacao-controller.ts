@@ -16,9 +16,9 @@ export class NegociacaoController {
 
   constructor() {
     // Assigns the corresponding HTML elements to the inputs
-    this.inputDate = document.querySelector("#data");
-    this.inputQuant = document.querySelector("#quantidade");
-    this.inputValue = document.querySelector("#valor");
+    this.inputDate = document.querySelector("#data") as HTMLInputElement;
+    this.inputQuant = document.querySelector("#quantidade") as HTMLInputElement;
+    this.inputValue = document.querySelector("#valor") as HTMLInputElement;
 
     // Refresh empty table
     this.negociacoesView.update(this.negociacoes);
@@ -53,7 +53,8 @@ export class NegociacaoController {
 
   // Cleans the form
   private clearForm(): void {
-    document.querySelector("form").reset();
+    const form: HTMLFormElement = document.querySelector("form") as HTMLFormElement;
+    form.reset();
   }
 
   private isBussinesDay(date: Date): boolean {

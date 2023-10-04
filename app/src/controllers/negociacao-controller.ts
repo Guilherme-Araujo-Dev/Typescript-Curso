@@ -1,4 +1,5 @@
 // Imports
+import { logET } from "../decorators/logET.js";
 import { Weekdays } from "../enums/weekdays.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
@@ -25,6 +26,7 @@ export class NegociacaoController {
   }
 
   // Adds table items and reset the form
+  @logET()
   public adicionar(): void {
     // Creating  a Negotiation
     const negociacao: Negociacao = Negociacao.create(

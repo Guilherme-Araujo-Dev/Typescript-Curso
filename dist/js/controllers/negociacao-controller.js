@@ -1,4 +1,5 @@
 // Imports
+import { Weekdays } from "../enums/weekdays.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { MensagensView } from "../views/mensagens-view.js";
@@ -18,9 +19,14 @@ export class NegociacaoController {
     // Adds table items and reset the form
     adicionar() {
         const negociacao = this.createNegotiation();
-        this.negociacoes.add(negociacao);
-        this.updateAll();
-        this.clearForm();
+        if (this.isBussinesDay(negociacao.date)) {
+            this.negociacoes.add(negociacao);
+            this.updateAll();
+            this.clearForm();
+        }
+        else {
+            this.mensagensView.update("Não é possível criar uma negociação nos finais de semana!");
+        }
     }
     // Creates a new Negotiation with the input values
     createNegotiation() {
@@ -42,5 +48,8 @@ export class NegociacaoController {
     // Cleans the form
     clearForm() {
         document.querySelector('form').reset();
+    }
+    isBussinesDay(date) {
+        return date.getDay() !== Weekdays.SATURDAY && date.getDay() !== Weekdays.SUNDAY;
     }
 }

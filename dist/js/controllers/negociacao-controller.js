@@ -1,4 +1,3 @@
-// Imports
 import { Weekdays } from "../enums/weekdays.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
@@ -9,16 +8,13 @@ export class NegociacaoController {
         this.negociacoes = new Negociacoes();
         this.negociacoesView = new NegociacoesView("#negociacoesView");
         this.mensagensView = new MensagensView("#mensagemView");
-        // Assigns the corresponding HTML elements to the inputs
         this.inputDate = document.querySelector("#data");
         this.inputQuant = document.querySelector("#quantidade");
         this.inputValue = document.querySelector("#valor");
-        // Refresh empty table
         this.negociacoesView.update(this.negociacoes);
     }
-    // Adds table items and reset the form
     adicionar() {
-        const negociacao = this.createNegotiation();
+        const negociacao = Negociacao.create(this.inputDate.value, this.inputQuant.value, this.inputValue.value);
         if (this.isBussinesDay(negociacao.date)) {
             this.negociacoes.add(negociacao);
             this.updateAll();
@@ -28,28 +24,14 @@ export class NegociacaoController {
             this.mensagensView.update("Não é possível criar uma negociação nos finais de semana!");
         }
     }
-    // Creates a new Negotiation with the input values
-    createNegotiation() {
-        const date = this.formatDate(this.inputDate.value);
-        const quant = parseInt(this.inputQuant.value);
-        const value = parseFloat(this.inputValue.value);
-        return new Negociacao(date, quant, value);
-    }
-    // Calls all views
     updateAll() {
         this.negociacoesView.update(this.negociacoes);
         this.mensagensView.update("Negociação Adicionada com Sucesso");
     }
-    // Formats Strings to Dates
-    formatDate(date) {
-        const exp = /-/g;
-        return new Date(date.replace(exp, ","));
-    }
-    // Cleans the form
     clearForm() {
-        document.querySelector('form').reset();
+        document.querySelector("form").reset();
     }
     isBussinesDay(date) {
-        return date.getDay() !== Weekdays.SATURDAY && date.getDay() !== Weekdays.SUNDAY;
+        return (date.getDay() !== Weekdays.SATURDAY && date.getDay() !== Weekdays.SUNDAY);
     }
 }

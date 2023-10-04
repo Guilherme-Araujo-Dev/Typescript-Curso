@@ -18,4 +18,19 @@ export class Negociacao {
   get volume(): number {
     return this.quant * this.value;
   }
+  
+  // Formats Strings to Dates
+  private static formatDate(date: string): Date {
+    const exp = /-/g;
+    return new Date(date.replace(exp, ","));
+  }
+
+  // Creates a new Negotiation with the input values
+  public static create(_date: string, _quant: string, _value: string): Negociacao {
+    const date = this.formatDate(_date); 
+    const quant = parseInt(_quant);
+    const value = parseFloat(_value);
+    return new Negociacao(date, quant, value);
+  }
+
 }

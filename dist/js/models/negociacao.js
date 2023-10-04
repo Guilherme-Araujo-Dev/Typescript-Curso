@@ -1,8 +1,4 @@
 export class Negociacao {
-    // private _date: Date;
-    // private _quant: number;
-    // private _value: number;
-    // These properties can only be changed by constructor or methods of that class
     constructor(_date, quant, value) {
         this._date = _date;
         this.quant = quant;
@@ -14,5 +10,15 @@ export class Negociacao {
     ;
     get volume() {
         return this.quant * this.value;
+    }
+    static formatDate(date) {
+        const exp = /-/g;
+        return new Date(date.replace(exp, ","));
+    }
+    static create(_date, _quant, _value) {
+        const date = this.formatDate(_date);
+        const quant = parseInt(_quant);
+        const value = parseFloat(_value);
+        return new Negociacao(date, quant, value);
     }
 }

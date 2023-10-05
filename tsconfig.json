@@ -6,7 +6,8 @@
       "noImplicitAny": true,
       "removeComments": true,
       "strictNullChecks": true,
-      "experimentalDecorators": true
+      "experimentalDecorators": true,
+      // "sourceMap": true,  - Para debugar o sistema, não deve ser usado em produção
   },
   "include": ["app/src/**/*", "app/src/app.ts"]
 }

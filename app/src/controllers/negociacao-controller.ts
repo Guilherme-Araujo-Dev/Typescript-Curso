@@ -1,4 +1,6 @@
 // Imports
+import { domInjector } from "../decorators/domInjector.js";
+import { inspect } from "../decorators/inspect.js";
 import { logET } from "../decorators/logET.js";
 import { Weekdays } from "../enums/weekdays.js";
 import { Negociacao } from "../models/negociacao.js";
@@ -8,24 +10,25 @@ import { NegociacoesView } from "../views/negociacoes-view.js";
 
 export class NegociacaoController {
   // Variables
-  private inputDate: HTMLInputElement;
-  private inputQuant: HTMLInputElement;
-  private inputValue: HTMLInputElement;
   private negociacoes = new Negociacoes();
   private negociacoesView = new NegociacoesView("#negociacoesView");
   private mensagensView = new MensagensView("#mensagemView");
 
-  constructor() {
-    // Assigns the corresponding HTML elements to the inputs
-    this.inputDate = document.querySelector("#data") as HTMLInputElement;
-    this.inputQuant = document.querySelector("#quantidade") as HTMLInputElement;
-    this.inputValue = document.querySelector("#valor") as HTMLInputElement;
+  // Assigns the corresponding HTML elements to the inputs
+  @domInjector('#data')
+  private inputDate: HTMLInputElement;
+  @domInjector('#quantidade')
+  private inputQuant: HTMLInputElement;
+  @domInjector('#valor')
+  private inputValue: HTMLInputElement;
 
+  constructor() {
     // Refresh empty table
     this.negociacoesView.update(this.negociacoes);
   }
 
   // Adds table items and reset the form
+  @inspect
   @logET()
   public adicionar(): void {
     // Creating  a Negotiation
